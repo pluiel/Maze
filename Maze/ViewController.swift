@@ -88,7 +88,7 @@ class ViewController: UIViewController {
             playerMotionManager.accelerometerUpdateInterval = 0.02
         
             startAccelerometer()
-        }
+    }
     
     func createView(x: Int, y: Int, width: CGFloat, height: CGFloat, offsetX: CGFloat, offsetY: CGFloat) -> UIView {
        let rect = CGRect(x :0, y: 0, width: width, height: height)
@@ -125,27 +125,28 @@ class ViewController: UIViewController {
             }
             if posY >= self.screenSize.height - (self.playerView.frame.height / 2) {
                 self.speedY = 0
-                posY = self.screenSize.width - (self.playerView.frame.height / 2)
+                posY = self.screenSize.height - (self.playerView.frame.height / 2)
             }
             
             for wallRect in self.wallRectArray {
                 if wallRect.intersects(self.playerView.frame) {
-                    print("Game Over")
+                    self.gameCheck (result: "gameover", message: "壁に当たりました")
                     return
-                }
             }
             if self.goalView.frame.intersects(self.playerView.frame) {
-                print("Clear")
+                self.gameCheck (result: "clear", message: "クリアしました！")
+                return
             }
+        }
+            
             
                self.playerView.center = CGPoint(x: posX, y: posY)
         }
            //加速度の開始
            playerMotionManager.startAccelerometerUpdates(to: OperationQueue.main, withHandler: handler)
-       
-    }
+        }
     
-    func gameCheck(result: String, message: String) {
+         func gameCheck(result: String, message: String) {
         //
         if playerMotionManager.isAccelerometerActive{
             playerMotionManager.stopAccelerometerUpdates()
@@ -160,7 +161,7 @@ class ViewController: UIViewController {
         gameCheckAlert.addAction(retryAction)
         
         self.present(gameCheckAlert, animated: true, completion: nil)
-    }
+        }
         
     func retry() {
         //
@@ -174,5 +175,8 @@ class ViewController: UIViewController {
         speedY = 0.0
         
     }
+
+
+
 
 }
