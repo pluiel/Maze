@@ -47,8 +47,8 @@ class ViewController: UIViewController {
         let cellWidth = screenSize.width / CGFloat(maze[0].count)
         let cellHeight = screenSize.height / CGFloat(maze.count)
         
-        let cellOffsetX = cellWidth / 2
-        let cellOffsetY = cellHeight / 2
+        let cellOffsetX = screenSize.width / CGFloat(maze[0].count * 2)
+        let cellOffsetY = screenSize.height / CGFloat(maze.count * 2)
         
         for y in 0 ..< maze.count {
             for x in 0 ..< maze[y].count {
@@ -108,7 +108,7 @@ class ViewController: UIViewController {
                
                //
             var posX = self.playerView.center.x + (CGFloat(self.speedX) / 3)
-            var posY = self.playerView.center.y + (CGFloat(self.speedY) / 3)
+            var posY = self.playerView.center.y - (CGFloat(self.speedY) / 3)
                
                //
             if posX <= self.playerView.frame.width / 2 {
